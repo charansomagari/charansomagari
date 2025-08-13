@@ -38,7 +38,7 @@ if st.button("Generate Image"):
 
     # Load a font (fallback if custom font not available)
     try:
-        font = ImageFont.truetype("arial.ttf", 90)  # You can use your own .ttf font
+        font = ImageFont.truetype("sans-serif.ttf", 90)  # You can use your own .ttf font
     except:
         font = ImageFont.load_default()
 
