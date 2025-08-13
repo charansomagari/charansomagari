@@ -33,4 +33,6 @@ ipl_info = {
         "Kings 11 Punjab" : "No cup Yet."
     }
 
-st.write(ipl_info[selected_team])
+c1,c2,c3 = st.columns(3)
+
+c2.write(ipl_info[selected_team])
