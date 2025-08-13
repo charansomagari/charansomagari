@@ -39,3 +39,8 @@ option = st.selectbox(
     "Choose your favorite fruit:",
     ["Apple", "Banana", "Mango", "Orange"]
 )
+
+
+col1,col2,col3 = st.columns([1,2,1])
+col1.write('hi')
+col2.write('hello')
