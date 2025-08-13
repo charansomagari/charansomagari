@@ -21,9 +21,9 @@ st.write(st.session_state.a)
 if 'b' not in st.session_state:
   st.session_state.b = []
 
-t = st.text_input
+t = st.text_input('enter number')
 
 r = rm.randint(1,3)
 
-if t == r:
+if int(t) == r:
   st.write('yes')
