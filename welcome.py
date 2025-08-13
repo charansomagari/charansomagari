@@ -13,6 +13,10 @@ t3 = st.text_input("", placeholder='list 3')
 t4 = st.text_input("", placeholder='list 4')
 t5 = st.text_input("", placeholder='list 5')
 
+col1,col2,col3 = st.columns(3)
+
+col2.text_input('','col1')
+
 # # Format list neatly
 # t = f"""Your list was:
 # 1. {t1}
@@ -22,7 +26,7 @@ t5 = st.text_input("", placeholder='list 5')
 # 5. {t5}
 # """
 
-t = f"""{text_data},
+t = f"""{text_data}
  \n{t1}
  \n{t2}
  \n{t3}
