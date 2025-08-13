@@ -1,51 +1,48 @@
 import streamlit as st
-from reportlab.lib.pagesizes import A4
-from reportlab.pdfgen import canvas
-from reportlab.lib.colors import HexColor
+from PIL import Image, ImageDraw, ImageFont
 import io
 
-st.title("📝 Custom Text Poster PDF Creator")
+st.title("📄 Text Poster PDF Creator (No ReportLab)")
 
-# User text
+# User input
 user_text = st.text_area("Enter text for the poster:", "Enter some text!")
 
-# Font size
-font_size = st.slider("Font Size", 10, 100, 40)
-
-# Text color
+# Size & font settings
+width = st.number_input("Image Width (px)", 200, 3000, 800)
+height = st.number_input("Image Height (px)", 200, 3000, 400)
+font_size = st.slider("Font Size", 10, 300, 90)
 text_color = st.color_picker("Pick Text Color", "#000000")
+bg_color = st.color_picker("Pick Background Color", "#FFFFFF")
 
 if st.button("Generate PDF"):
-    # Create PDF in memory
-    pdf_buffer = io.BytesIO()
-    c = canvas.Canvas(pdf_buffer, pagesize=A4)
+    # Create blank image
+    img = Image.new("RGB", (width, height), color=bg_color)
+    draw = ImageDraw.Draw(img)
 
-    # Get page width/height
-    width, height = A4
+    # Load font
+    try:
+        font = ImageFont.truetype("arial.ttf", font_size)
+    except:
+        font = ImageFont.load_default()
 
-    # Set font
-    c.setFont("Helvetica-Bold", font_size)
-    c.setFillColor(HexColor(text_color))
-
-    # Calculate position (centered)
-    text_width = c.stringWidth(user_text, "Helvetica-Bold", font_size)
+    # Center text
+    text_bbox = draw.textbbox((0, 0), user_text, font=font)
+    text_width = text_bbox[2] - text_bbox[0]
+    text_height = text_bbox[3] - text_bbox[1]
     x = (width - text_width) / 2
-    y = height / 2
+    y = (height - text_height) / 2
 
-    # Draw text
-    c.drawString(x, y, user_text)
+    draw.text((x, y), user_text, fill=text_color, font=font)
 
-    # Save PDF
-    c.showPage()
-    c.save()
-
-    # Move to start of file
-    pdf_buffer.seek(0)
+    # Save as PDF in memory
+    pdf_bytes = io.BytesIO()
+    img.save(pdf_bytes, format="PDF")
+    pdf_bytes.seek(0)
 
     # Download button
     st.download_button(
         label="📥 Download PDF Poster",
-        data=pdf_buffer,
+        data=pdf_bytes,
         file_name="poster.pdf",
         mime="application/pdf"
     )
