@@ -1,6 +1,6 @@
 import streamlit as st
 from datetime import date
-
+import random as rm
 today = date.today()
 c1,c2,c3 = st.columns([1,2,1])
 
@@ -17,3 +17,13 @@ if st.button('ok'):
     st.session_state.a += 1
 
 st.write(st.session_state.a)
+
+if 'b' not in st.session_state:
+  st.session_state.b = []
+
+t = st.text_input
+
+r = rm.randint(1,3)
+
+if t == r:
+  st.write('yes')
