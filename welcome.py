@@ -15,7 +15,9 @@ t5 = st.text_input("", placeholder='list 5')
 
 col1,col2,col3 = st.columns(3)
 
-col2.text_input('','col1')
+col1.text_input('','first name')
+col2.text_input('','middle name')
+col3.text_input('','last name')
 
 # # Format list neatly
 # t = f"""Your list was:
