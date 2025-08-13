@@ -23,11 +23,11 @@ t5 = st.text_input("", placeholder='list 5')
 # """
 
 t = f"""{text_data},
- {t1}
- {t2}
- {t3}
- {t4}
- {t5}
+ \n{t1}
+ \n{t2}
+ \n{t3}
+ \n{t4}
+ \n{t5}
 """
 st.write(t)
 
