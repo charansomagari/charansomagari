@@ -18,12 +18,4 @@ if st.button('ok'):
 
 st.write(st.session_state.a)
 
-if 'b' not in st.session_state:
-  st.session_state.b = []
 
-t = st.text_input('enter number')
-
-r = rm.randint(1,1)
-
-if int(t) == r:
-  st.write('yes')
