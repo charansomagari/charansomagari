@@ -15,10 +15,13 @@ t5 = st.text_input("", placeholder='list 5')
 
 col1,col2,col3 = st.columns(3)
 
-col1.text_input('','first name')
-col2.text_input('','middle name')
-col3.text_input('','last name')
+f = col1.text_input('',placeholder = 'first name')
+m = col2.text_input('',placeholder = 'middle name')
+l = col3.text_input('',placeholder = 'last name')
 
+
+name = f"Hello {f} {m} {l}"
+st.write(name)
 # # Format list neatly
 # t = f"""Your list was:
 # 1. {t1}
