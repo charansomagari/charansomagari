@@ -29,6 +29,7 @@ t = f"""{text_data},
  {t4}
  {t5}
 """
+st.write(t)
 
 # Download buttons
 st.download_button("Download TXT", data=t, file_name="myfile.txt")
