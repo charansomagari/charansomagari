@@ -1,6 +1,8 @@
 import streamlit as st
 
-col1,col2 = st.columns(2)
-col2.title("YOUT TEXT MAKER")
-text_data = st.text_input("",placeholder = "enter some text here")
+col1,col2,col3 = st.columns(3)
+
+with col2:
+  st.header("YOUT TEXT MAKER")
+text_data = st.text_input("",placeholder = "enter some text here", height = 200)
 st.download_button("Download TXT", data=text_data, file_name="myfile.txt")
