@@ -17,9 +17,9 @@ if st.button("Generate Image"):
 
 
 try:
-        font = ImageFont.truetype("sans-serif.ttf", 90)  # You can use your own .ttf font
-    except:
-        font = ImageFont.load_default()
+    font = ImageFont.truetype("sans-serif.ttf", 90)  # You can use your own .ttf font
+except:
+    font = ImageFont.load_default()
 
    # Calculate text position (centered)
     text_bbox = draw.textbbox((0,0), user_text, font=font)
