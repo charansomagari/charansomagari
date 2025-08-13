@@ -23,7 +23,7 @@ if 'b' not in st.session_state:
 
 t = st.text_input('enter number')
 
-r = rm.randint(1,3)
+r = rm.randint(1,1)
 
 if int(t) == r:
   st.write('yes')
