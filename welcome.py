@@ -1,42 +1,40 @@
 import streamlit as st
-from PIL import Image, ImageDraw, ImageFont
+from fpdf import FPDF
 import io
 
-st.title("📄 Text Poster PDF Creator (No ReportLab)")
+st.title("📄 PDF Poster Creator (No PIL)")
 
-# User input
+# User inputs
 user_text = st.text_area("Enter text for the poster:", "Enter some text!")
-
-# Size & font settings
-width = st.number_input("Image Width (px)", 200, 3000, 800)
-height = st.number_input("Image Height (px)", 200, 3000, 400)
-font_size = st.slider("Font Size", 10, 300, 90)
-text_color = st.color_picker("Pick Text Color", "#000000")
-bg_color = st.color_picker("Pick Background Color", "#FFFFFF")
+font_size = st.slider("Font Size", 10, 100, 40)
+text_color = st.color_picker("Pick Text Color", "#000000")  # Hex format
 
 if st.button("Generate PDF"):
-    # Create blank image
-    img = Image.new("RGB", (width, height), color=bg_color)
-    draw = ImageDraw.Draw(img)
+    # Create PDF
+    pdf = FPDF(orientation="P", unit="mm", format="A4")
+    pdf.add_page()
 
-    # Load font
-    try:
-        font = ImageFont.truetype("arial.ttf", font_size)
-    except:
-        font = ImageFont.load_default()
+    # Convert hex color to RGB
+    text_color = text_color.lstrip('#')
+    r, g, b = tuple(int(text_color[i:i+2], 16) for i in (0, 2, 4))
+    pdf.set_text_color(r, g, b)
 
-    # Center text
-    text_bbox = draw.textbbox((0, 0), user_text, font=font)
-    text_width = text_bbox[2] - text_bbox[0]
-    text_height = text_bbox[3] - text_bbox[1]
-    x = (width - text_width) / 2
-    y = (height - text_height) / 2
+    # Set font and size
+    pdf.set_font("Helvetica", size=font_size)
 
-    draw.text((x, y), user_text, fill=text_color, font=font)
+    # Calculate vertical position for centering
+    page_width = pdf.w
+    page_height = pdf.h
+    text_width = pdf.get_string_width(user_text)
+    x = (page_width - text_width) / 2
+    y = page_height / 2
 
-    # Save as PDF in memory
+    pdf.set_xy(x, y)
+    pdf.cell(text_width, 10, user_text)
+
+    # Save to in-memory bytes
     pdf_bytes = io.BytesIO()
-    img.save(pdf_bytes, format="PDF")
+    pdf.output(pdf_bytes)
     pdf_bytes.seek(0)
 
     # Download button
