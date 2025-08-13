@@ -35,4 +35,4 @@ ipl_info = {
 
 c1,c2,c3 = st.columns(3)
 
-c2.write(ipl_info[selected_team])
+c2.header(ipl_info[selected_team])
