@@ -22,7 +22,7 @@ t5 = st.text_input("", placeholder='list 5')
 # 5. {t5}
 # """
 
-t = f""" text_data,
+t = f"""{text_data},
  {t1}
  {t2}
  {t3}
