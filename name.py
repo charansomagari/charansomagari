@@ -33,7 +33,7 @@ ipl_info = {
         "Kings 11 Punjab" : "No cup Yet."
     }
 
-c1,c2,c3 = st.columns(5)
+c1,c2,c3,c4,c5 = st.columns(5)
 
 c2.header(ipl_info[selected_team])
 
